@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class CtaBancaria {
 	
 	private String num;

@@ -23,8 +23,14 @@ public class CtaBancariaRepoImpl implements ICtaBancariaRepo {
 		for (CtaBancaria cta : base) {
 
 			if (cta.getNum().equals(num)) {
-				System.out.println("Seleccionamos la cuenta." + num);
+				
+				CtaBancaria cta1 = new CtaBancaria();
+				cta1.setCedulaPropietario(cta.getCedulaPropietario());
+				cta1.setNum(cta.getNum());
+				cta1.setSaldo(cta.getSaldo());
+				
 				return cta;
+				
 			}
 		}
 		System.out.println("No existe la cuenta ." + num);

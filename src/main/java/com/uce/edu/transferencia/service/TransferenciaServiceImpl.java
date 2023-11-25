@@ -1,6 +1,7 @@
 package com.uce.edu.transferencia.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 
 	@Autowired
 	private ICtaBancariaRepo iCtaBancariaRepo;
+	
 
 	@Override
 	public void guardar(Transferencia transferencia) {
@@ -43,20 +45,43 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	public void realizar(String ctaOrigen, String ctaDestino, BigDecimal monto) {
 		
 		//1.-Buscar CtaOrigen
-		CtaBancaria ctaOri= this.iCtaBancariaRepo.selecionar(ctaDestino);
+		CtaBancaria ctaOri= this.iCtaBancariaRepo.selecionar(ctaOrigen);
 		//2.-Consultar el saldo
-		
+		BigDecimal saldoOrigen = ctaOri.getSaldo();
 		//3.-validar saldo
-		//4.-restar el monto
-		//5.-Actualizar ctaOringen
+		if (saldoOrigen.compareTo(monto)>=0) {
+			
+			//4.-restar el monto
+			BigDecimal nuevoSaldoOrigen = saldoOrigen.subtract(monto);
+			
+			//5.-Actualizar ctaOringen
+			ctaOri.setSaldo(nuevoSaldoOrigen);
+			this.iCtaBancariaRepo.actualizar(ctaOri);
+			
+			//6.-Buscar CtaDestino
+			CtaBancaria ctaDes = this.iCtaBancariaRepo.selecionar(ctaDestino);
+			//7.-Consultar el saldo
+			BigDecimal saldoDestino = ctaDes.getSaldo();
+			//8.-sumar el monto
+			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto);
+			//9.-Actualizar CtaDestino
+			ctaDes.setSaldo(nuevoSaldoDestino);
+			this.iCtaBancariaRepo.actualizar(ctaDes);
+			
+			//10.-Crear la transferencia
+			Transferencia transfer = new Transferencia();
+			transfer.setCtaOrigen(ctaOri);
+			transfer.setCtaDestino(ctaDes);
+			transfer.setFecha(LocalDateTime.now());
+			transfer.setNum("12312313");
+			this.iTransferenciaRepo.insertar(transfer);
+			System.err.println("Transferencia Realizada con Exito");
+			
+		}else {
+			System.out.println("saldo no disponible");
+		}
 		
-		
-		//6.-Buscar CtaDestino
-		//7.-Consultar el saldo
-		//8.-sumar el monto
-		//9.-Actualizar CtaDestino
-		
-		//10.-Crear la transferencia
+	
 		
 	}
 
