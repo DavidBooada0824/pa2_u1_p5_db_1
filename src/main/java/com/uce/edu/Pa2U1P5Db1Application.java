@@ -34,7 +34,7 @@ public class Pa2U1P5Db1Application implements CommandLineRunner {
 		this.materia.setNombre("Avanzada II");
 		System.out.println(this.materia);
 
-		this.materia1.setNombre("Nuevo Nmbre");
+		this.materia1.setNombre("Nuevo Nombre");
 		System.out.println(this.materia1);
 		System.out.println(this.materia);
 		
