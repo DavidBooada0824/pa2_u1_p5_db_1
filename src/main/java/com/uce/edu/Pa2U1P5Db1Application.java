@@ -47,14 +47,13 @@ public class Pa2U1P5Db1Application implements CommandLineRunner {
 		
 		System.err.println("La cuenta Destino cuenta con $"+ctaDes.getSaldo());
 		
-		ctaOri = this.iCtaBancariaService.buscar("001");
+		
+		this.iTransferenciaService.realizar("001", "002", new BigDecimal(50));
+		System.err.println("Su nuevo saldo es "+ctaOri.getSaldo());
+		
+		System.err.println("La cuenta Destino cuenta con $"+ctaDes.getSaldo());
 		
 		
-		ctaDes = this.iCtaBancariaService.buscar("002");
-		
-		
-		
-		//1. Crear cuenta
 		
 	
 

@@ -7,11 +7,11 @@ public interface ITransferenciaRepo {
 	
 	public void insertar(Transferencia transferencia);
 
-	public Transferencia selecionar(String num);
+	public Transferencia selecionar(Integer num);
 
 	public void actualizar(Transferencia transferencia);
 
-	public void eliminar(String num);
+	public void eliminar(Integer num);
 
 
 }

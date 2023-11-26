@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Transferencia {
 	
-	private String num;
+	private Integer num;
 	private LocalDateTime fecha;
 	private BigDecimal monto;
 	private CtaBancaria ctaOrigen;
@@ -20,10 +20,10 @@ public class Transferencia {
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
-	public String getNum() {
+	public Integer getNum() {
 		return num;
 	}
-	public void setNum(String num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 	public void setFecha(LocalDateTime fecha) {

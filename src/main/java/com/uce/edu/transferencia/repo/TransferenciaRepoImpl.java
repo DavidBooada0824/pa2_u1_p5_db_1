@@ -19,7 +19,7 @@ public class TransferenciaRepoImpl implements ITransferenciaRepo {
 	}
 
 	@Override
-	public Transferencia selecionar(String num) {
+	public Transferencia selecionar(Integer num) {
 		for (Transferencia cta : base) {
 
 			if (cta.getNum().equals(num)) {
@@ -39,7 +39,7 @@ public class TransferenciaRepoImpl implements ITransferenciaRepo {
 	}
 
 	@Override
-	public void eliminar(String num) {
+	public void eliminar(Integer num) {
 		Transferencia trans = this.selecionar(num);
 		base.remove(num);
 

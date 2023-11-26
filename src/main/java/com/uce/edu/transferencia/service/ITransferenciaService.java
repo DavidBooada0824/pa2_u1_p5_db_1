@@ -8,11 +8,11 @@ public interface ITransferenciaService {
 
 	public void guardar(Transferencia transferencia);
 
-	public Transferencia buscar(String num);
+	public Transferencia buscar(Integer num);
 
 	public void actualizar(Transferencia transferencia);
 
-	public void eliminar(String num);
+	public void eliminar(Integer num);
 
 	public void realizar(String ctaOrigen, String ctaDestino, BigDecimal monto);
 }
