@@ -1,6 +1,7 @@
 package com.uce.edu;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.uce.edu.transferencia.repo.modelo.CtaBancaria;
+import com.uce.edu.transferencia.repo.modelo.Transferencia;
 import com.uce.edu.transferencia.service.ICtaBancariaService;
 import com.uce.edu.transferencia.service.ITransferenciaService;
 
@@ -54,7 +56,8 @@ public class Pa2U1P5Db1Application implements CommandLineRunner {
 		System.err.println("La cuenta Destino cuenta con $"+ctaDes.getSaldo());
 		
 		
-		
+		 List<Transferencia> lista = this.iTransferenciaService.buscarTodos();
+		 System.out.println(lista);
 	
 
 	}

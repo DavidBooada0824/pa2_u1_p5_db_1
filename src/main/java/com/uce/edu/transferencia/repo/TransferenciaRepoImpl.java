@@ -44,5 +44,11 @@ public class TransferenciaRepoImpl implements ITransferenciaRepo {
 		base.remove(num);
 
 	}
+	
+	@Override
+	public List<Transferencia> seleccionarTodos() {
+		return base;
+	}
+
 
 }

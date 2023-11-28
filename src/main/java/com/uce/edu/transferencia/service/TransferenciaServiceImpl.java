@@ -2,6 +2,7 @@ package com.uce.edu.transferencia.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 		BigDecimal saldoOrigen = ctaOri.getSaldo();
 		// 3.-validar saldo
 		if (saldoOrigen.compareTo(monto) >= 0) {
-			
+
 			cont++;
 
 			// 4.-restar el monto
@@ -80,17 +81,23 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 			this.iTransferenciaRepo.insertar(transfer);
 			System.err.println("Transferencia Realizada con Exito");
 
-			System.out.println("000"+transfer.getNum());
+			System.out.println("000" + transfer.getNum());
 
 		} else {
-			
+
 			Transferencia transfer = new Transferencia();
 			System.out.println("Tramsferencia no realizada \nSu Numero de transferencia es: ");
 			transfer.setNum(cont);
-			System.out.println("000"+transfer.getNum());
+			System.out.println("000" + transfer.getNum());
 			System.out.println("saldo no disponible");
 		}
 
+	}
+
+	@Override
+	public List<Transferencia> buscarTodos() {
+		// TODO Auto-generated method stub
+		return this.iTransferenciaRepo.seleccionarTodos();
 	}
 
 }
