@@ -64,11 +64,18 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 
 			// 6.-Buscar CtaDestino
 			CtaBancaria ctaDes = this.iCtaBancariaRepo.selecionar(ctaDestino);
+
 			// 7.-Consultar el saldo
 			BigDecimal saldoDestino = ctaDes.getSaldo();
-			// 8.-sumar el monto
-			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto);
-			// 9.-Actualizar CtaDestino
+//			
+//			// 8.-sumar el monto
+//			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto);
+//			// 9.-Actualizar CtaDestino
+//			ctaDes.setSaldo(nuevoSaldoDestino);
+
+			BigDecimal finalSaldo = monto.multiply(new BigDecimal(0.1));
+
+			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto.subtract(finalSaldo));
 			ctaDes.setSaldo(nuevoSaldoDestino);
 			this.iCtaBancariaRepo.actualizar(ctaDes);
 

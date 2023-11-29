@@ -16,12 +16,27 @@ import com.uce.edu.transferencia.service.ITransferenciaService;
 @SpringBootApplication
 public class Pa2U1P5Db1Application implements CommandLineRunner {
 
-	@Autowired
-	private ICtaBancariaService iCtaBancariaService;
 	
+	//DI POR ATRIBUTO
 	@Autowired
 	private ITransferenciaService iTransferenciaService;
-	
+
+// DI POR CONSTRUCTOR	
+//	@Autowired
+//	public Pa2U1P5Db1Application (ITransferenciaService iTransServi) {
+//		this.iTransferenciaService=iTransServi;
+//		
+//	}
+/*	@Autowired
+	public void setiTransferenciaService(ITransferenciaService iTransfeenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+
+	}
+	*/
+
+	@Autowired
+	private ICtaBancariaService iCtaBancariaService;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P5Db1Application.class, args);
@@ -29,36 +44,33 @@ public class Pa2U1P5Db1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		CtaBancaria ctaOri = new CtaBancaria();
-		
+
 		ctaOri.setCedulaPropietario("1720030723");
 		ctaOri.setNum("001");
 		ctaOri.setSaldo(new BigDecimal(100));
 		this.iCtaBancariaService.crear(ctaOri);
-		
+
 		CtaBancaria ctaDes = new CtaBancaria();
-		
+
 		ctaDes.setCedulaPropietario("1720030715");
 		ctaDes.setNum("002");
 		ctaDes.setSaldo(new BigDecimal(20));
 		this.iCtaBancariaService.crear(ctaDes);
-		
+
 		this.iTransferenciaService.realizar("001", "002", new BigDecimal(50));
-		System.err.println("Su nuevo saldo es "+ctaOri.getSaldo());
-		
-		System.err.println("La cuenta Destino cuenta con $"+ctaDes.getSaldo());
-		
-		
+		System.err.println("Su nuevo saldo es " + ctaOri.getSaldo());
+
+		System.err.println("La cuenta Destino cuenta con $" + ctaDes.getSaldo());
+
 		this.iTransferenciaService.realizar("001", "002", new BigDecimal(50));
-		System.err.println("Su nuevo saldo es "+ctaOri.getSaldo());
-		
-		System.err.println("La cuenta Destino cuenta con $"+ctaDes.getSaldo());
-		
-		
-		 List<Transferencia> lista = this.iTransferenciaService.buscarTodos();
-		 System.out.println(lista);
-	
+		System.err.println("Su nuevo saldo es " + ctaOri.getSaldo());
+
+		System.err.println("La cuenta Destino cuenta con $" + ctaDes.getSaldo());
+
+		List<Transferencia> lista = this.iTransferenciaService.buscarTodos();
+		System.out.println(lista);
 
 	}
 
