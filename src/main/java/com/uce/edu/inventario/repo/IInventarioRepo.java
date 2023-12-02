@@ -6,7 +6,6 @@ public interface IInventarioRepo {
 
 	public Inventario seleccionar(String codigo);
 
-
 	public void insertar(Inventario inventario);
 
 	public void actualizar(Inventario inventario);

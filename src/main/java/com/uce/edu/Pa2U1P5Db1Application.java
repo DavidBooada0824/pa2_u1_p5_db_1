@@ -1,43 +1,29 @@
 package com.uce.edu;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.transferencia.repo.modelo.CtaBancaria;
-import com.uce.edu.transferencia.repo.modelo.Transferencia;
-import com.uce.edu.transferencia.service.ICtaBancariaService;
-import com.uce.edu.transferencia.service.ITransferenciaService;
+import com.uce.edu.inventario.repo.modelo.Bodega;
+import com.uce.edu.inventario.repo.modelo.Inventario;
+import com.uce.edu.inventario.repo.modelo.Producto;
+import com.uce.edu.inventario.service.IBodegaService;
+import com.uce.edu.inventario.service.IInventarioService;
+import com.uce.edu.inventario.service.IProductoService;
 
 @SpringBootApplication
 public class Pa2U1P5Db1Application implements CommandLineRunner {
 
-	
-	//DI POR ATRIBUTO
 	@Autowired
-	private ITransferenciaService iTransferenciaService;
-
-// DI POR CONSTRUCTOR	
-//	@Autowired
-//	public Pa2U1P5Db1Application (ITransferenciaService iTransServi) {
-//		this.iTransferenciaService=iTransServi;
-//		
-//	}
-/*	@Autowired
-	public void setiTransferenciaService(ITransferenciaService iTransfeenciaService) {
-		this.iTransferenciaService = iTransferenciaService;
-
-	}
-	*/
+	private IProductoService iProductoService;
 
 	@Autowired
-	private ICtaBancariaService iCtaBancariaService;
+	private IBodegaService iBodegaService;
 
-	
+	@Autowired
+	private IInventarioService iInventarioService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P5Db1Application.class, args);
 	}
@@ -45,32 +31,44 @@ public class Pa2U1P5Db1Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		CtaBancaria ctaOri = new CtaBancaria();
+		Producto p1 = new Producto();
 
-		ctaOri.setCedulaPropietario("1720030723");
-		ctaOri.setNum("001");
-		ctaOri.setSaldo(new BigDecimal(100));
-		this.iCtaBancariaService.crear(ctaOri);
+		p1.setCodigoBarras("001");
+		p1.setNombre("HP 15 LAP");
+		p1.setStock(0);
 
-		CtaBancaria ctaDes = new CtaBancaria();
+		this.iProductoService.ingresar(p1);
 
-		ctaDes.setCedulaPropietario("1720030715");
-		ctaDes.setNum("002");
-		ctaDes.setSaldo(new BigDecimal(20));
-		this.iCtaBancariaService.crear(ctaDes);
+		Producto p2 = new Producto();
 
-		this.iTransferenciaService.realizar("001", "002", new BigDecimal(50));
-		System.err.println("Su nuevo saldo es " + ctaOri.getSaldo());
+		p1.setCodigoBarras("123457");
+		p1.setNombre("Teclado hp");
+		p1.setStock(0);
 
-		System.err.println("La cuenta Destino cuenta con $" + ctaDes.getSaldo());
+		this.iProductoService.ingresar(p2);
 
-		this.iTransferenciaService.realizar("001", "002", new BigDecimal(50));
-		System.err.println("Su nuevo saldo es " + ctaOri.getSaldo());
+		Bodega bode1 = new Bodega();
+		bode1.setCapacidad(300);
+		bode1.setCodigo("BA01");
+		bode1.setDireccion("Av universitaria");
+		bode1.setNombre("Bodega Universitaria");
+		this.iBodegaService.ingresar(bode1);
+		
 
-		System.err.println("La cuenta Destino cuenta con $" + ctaDes.getSaldo());
 
-		List<Transferencia> lista = this.iTransferenciaService.buscarTodos();
-		System.out.println(lista);
+
+		this.iInventarioService.registrar("BA01", "001", 50);
+
+
+
+		this.iInventarioService.registrar("BA01", "002", 100);
+
+
+
+		this.iInventarioService.registrar("BA01", "001", 20);
+		
+		
+			
 
 	}
 
